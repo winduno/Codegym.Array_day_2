@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FakingTextArea</title>
+    <style>
+        body{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Tpye anything guys!!!</h1>
+<textarea name="randomText" id="rdmtxt" cols="100" rows="10" onkeydown="rdmText()"></textarea>
+</body>
+</html>
+<script>
+    let str = "Tôi long trọng thề rằng tôi đang làm một chuyện cực kỳ bậy bạ!!";
+    let result = "";
+    let count = 0;
+
+    function rdmText() {
+        // result += str[count];
+        // count++;
+        // document.getElementById("rdmtxt").value = result;
+        // if (count == str.length){
+        //     result = "";
+        //     count = 0;
+        // }
+
+        let text = document.getElementById("rdmtxt").value;
+        if (text.length > 0){
+            for (let i = 0; i < text.length; i++) {
+                result = result + str[i];
+                if (i == str.length) {
+                    document.getElementById("rdmtxt").value = "";
+                    result = "";
+                }
+            }
+        }
+        document.getElementById("rdmtxt").value = result;
+        result = "";
+        setTimeout("rdmText()", 1);
+    }
+</script>

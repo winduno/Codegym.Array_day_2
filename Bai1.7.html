@@ -1,0 +1,58 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--</body>-->
+<!--</html>-->
+<!--<script>-->
+<!--    let length = prompt("Kích thước mảng: ");-->
+<!--    let arr = [];-->
+<!--    let index;-->
+<!--    for (let i = 0; i < length; i++){-->
+<!--        arr.push(prompt("Nhập số thứ " + i));-->
+<!--    }-->
+<!--    let v = prompt("Nhập số cần tìm");-->
+<!--    for (let i = 0; i < length; i++){-->
+<!--        if (arr[i] == v){           //Nếu vị trí thứ i có giá trị là v, tức là tìm đc v ở vị trí i-->
+<!--            arr.splice(i,1);-->
+<!--            // if (i + 1 < length){    //Check xem i+1 có nhỏ hơn length không, nếu không làm cái này thì ở dưới lỗi-->
+<!--            //     arr[i] = arr[i+1];  //Gán giá trị vị trí i bằng giá trị của vị trí i+1-->
+<!--            //     arr[i+1] = v;       //Gán giá trị vị trí i+1 bằng v để khi lặp lại thì câu lệnh a[i] == v vẫn đúng-->
+<!--            // }-->
+<!--        }-->
+<!--    }-->
+<!--    // arr.pop(arr[length - 1]);-->
+<!--    document.write(arr);-->
+<!--</script>-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    let numbers = [];
+    let pushArray = parseInt(prompt('nhap so luong day'));
+    for (let i = 0; i < pushArray; i++) {
+        numbers[i] = prompt('nhap day');
+    }
+
+    function deleteV() {
+        let V = prompt('nhap so V');
+        for (i = 0; i < numbers; i++) {
+            if (numbers[i] == V) {
+                numbers.splice(i, 1);
+            }
+        }
+        return numbers;
+    }
+    document.write(deleteV());
+
+</script>
+</body>
+</html>

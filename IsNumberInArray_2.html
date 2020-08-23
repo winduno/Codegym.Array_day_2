@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IsNumberInArray_2</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    let arr = [];
+    let length = prompt("Nhập số phần tử của mảng đi anh zai!!");
+    let count = 0;
+    while(1){
+        let input = parseFloat(prompt("Nhập vào số thứ " + (count + 1)));
+        if (Number.isInteger(input)){
+            arr[count] = input;
+            count++;
+        }
+        else{
+            alert("Nhập số cơ mà!!");
+        }
+        if (count == length) break;
+    }
+
+    let v;
+    do{
+        v = parseFloat(prompt("Nhập số V vào xem nào!!"));
+    } while (isNaN(v));
+
+    //Cách 1 dùng splice:
+    // for (let i = 0; i < length; i++){
+    //     if (arr[i] == v){
+    //         arr.splice(i, 1);
+    //     }
+    // }
+    // if (arr.length < length) document.write("Xóa V rồi, mảng mới là: " + arr);
+    // else document.write("Làm quái gì có " + v + " trong mảng mà đòi xóa. Đây này: " + arr);
+
+
+    //Cách 2 duyệt từ đầu đến cuối:
+    for (let i = 0; i < length; i++){
+        if (arr[i] == v){
+            if (i + 1 < length){
+                arr[i] = arr[i+1];
+                arr[i+1] = v;
+            }
+        }
+    }
+    if (arr[length - 1] == v) arr.pop(arr[length - 1]);
+    if (arr.length < length) document.write("Xóa V rồi, mảng mới là: " + arr);
+    else document.write("Làm quái gì có " + v + " trong mảng mà đòi xóa. Đây này: " + arr);
+</script>

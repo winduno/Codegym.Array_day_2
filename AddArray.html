@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AddArray</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    let arr1 = [], arr2 = [];
+    let length1 = parseFloat(prompt("Nhập số phần tử của mảng 1 đi anh zai!!"));
+    let count = 0;
+    while(1){
+        let input = parseFloat(prompt("Nhập vào số thứ " + (count + 1)));
+        if (Number.isInteger(input)){
+            arr1[count] = input;
+            count++;
+        }
+        else{
+            alert("Nhập số cơ mà!!");
+        }
+        if (count == length1) break;
+    }
+
+    count = 0;
+    let length2 = parseFloat(prompt("Nhập số phần tử của mảng 2 đi anh zai!!"));
+    while(1){
+        let input = parseFloat(prompt("Nhập vào số thứ " + (count + 1)));
+        if (Number.isInteger(input)){
+            arr2[count] = input;
+            count++;
+        }
+        else{
+            alert("Nhập số cơ mà!!");
+        }
+        if (count == length2) break;
+    }
+
+    //Cách 1: dùng concat()
+    // let arr3 = arr1.concat(arr2);
+    // document.write("Mảng 1: " + arr1 + "<br>");
+    // document.write("Mảng 2: " + arr2 + "<br>");
+    // document.write("Mảng 3: " + arr3 + "<br>");
+
+    //Cách 2: dùng push()
+    //let arr3 = [];
+    // for (let i = 0; i < length1; i++){
+    //     arr3.push(arr1[i]);
+    // }
+    // for (let i = 0; i < length2; i++){
+    //     arr3.push(arr2[i]);
+    // }
+    // document.write("Mảng 1: " + arr1 + "<br>");
+    // document.write("Mảng 2: " + arr2 + "<br>");
+    // document.write("Mảng 3: " + arr3 + "<br>");
+
+    //Cách 3: gán từng cái một
+    let arr3 = new Array(length2 + length1);
+    for (let i = 0; i < length1; i++){
+        arr3[i] = arr1[i];
+    }
+    for (let i = arr3.length - length2, j = 0; i < arr3.length; i++, j++){
+        arr3[i] = arr2[j];
+    }
+    document.write("Mảng 1: " + arr1 + "<br>");
+    document.write("Mảng 2: " + arr2 + "<br>");
+    document.write("Mảng 3: " + arr3 + "<br>");
+
+</script>

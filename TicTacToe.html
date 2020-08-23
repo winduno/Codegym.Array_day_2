@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html>
+        <html lang="en">
+
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Exercise Tic Tac Toe</title>
+            <style>
+                .wrap {
+                    margin: 40px auto;
+                    padding: 30px;
+                    width: 80%;
+                    max-width: 800px;
+                    background-color: #fff;
+                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2);
+                }
+
+                h1 {
+                    color: #0067b8;
+                    text-transform: uppercase;
+                }
+
+                .mt-2 {
+                    margin-top: 10px;
+                }
+
+                .text-center {
+                    text-align: center;
+                }
+
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                }
+
+                th,
+                td {
+                    border: 1px solid #dddddd;
+                    padding: 10px;
+                    text-align: center;
+                    font-size: 22px;
+                    cursor: pointer;
+                }
+
+                .btn {
+                    font-size: 15px;
+                    padding: 12px 20px;
+                    margin: 14px 0 8px 0;
+                    text-align: center;
+                    border-radius: 4px;
+                    display: inline-block;
+                    border: 2px solid transparent;
+                    outline: 1px solid transparent;
+                    cursor: pointer;
+                }
+
+                .bg-primary {
+                    background-color: #0078D4;
+                    color: #fff;
+                }
+
+                .text-primary {
+                    color: #0078D4;
+                }
+
+                .text-danger {
+                    color: #dc3545;
+                }
+
+                .font-weight-bold {
+                    font-weight: bold;
+                }
+
+                .py-10 {
+                    padding: 10px;
+                }
+            </style>
+        </head>
+
+<body>
+<div class="wrap">
+    <h1 class="text-center">TicTacToe</h1>
+    <p class="text-center" id="output"><span class="text-danger font-weight-bold">X</span> đi trước</p>
+    <div id="carogame"></div>
+</div>
+<script>
+    let carogame = document.getElementById("carogame");
+    let tbl = document.createElement("table");
+    let clickable = false;
+    const PLAYER_1 = "x";
+    const PLAYER_2 = "o";
+    const NUM_GAME_BOARD = 3; // Hằng số lưu số ô cờ caro 3x3.
+    const WIN_COMBINATIONS = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+    ]; // Hằng số lưu 8 trường hợp dành chiến thắng.
+    let gameBoard = [];
+
+    for (let i = 0; i < NUM_GAME_BOARD; i++) {
+        gameBoard[i] = [0, 0, 0];
+    }
+    for (let i = 0; i < NUM_GAME_BOARD; i++) { //Chạy vòng lặp row.
+        let rows = document.createElement("tr");
+        for (let j = 0; j < NUM_GAME_BOARD; j++) { //Chạy vòng lặp column lồng trong vòng lặp row.
+            let cols = document.createElement("td");
+            let colsText = document.createTextNode( "\u00A0");
+            cols.appendChild(colsText);
+            cols.onclick = function () { // Thêm sự kiện click vào mỗi ô.
+                if (this.textContent === "\u00A0") { // Chỉ chèn x hoặc o vào ô trống.
+                    if (clickable) {
+                        clickable = false;
+                        this.innerHTML = "<span class=\"text-danger font-weight-bold\">o</span>";
+                        gameBoard[i][j] = PLAYER_2; // Gán phần tử gameBoard[i][jư bằng giá trị "o".
+                    } else {
+                        clickable = true;
+                        this.innerHTML = "<span class=\"text-primary font-weight-bold\">x</span>";
+                        gameBoard[i][j] = PLAYER_1; // Gán phần tử gameBoard[i][jư bằng giá trị "x".
+                    }
+                }
+                checkWin(gameBoard);
+                console.log("" + i + j);
+            };
+            rows.appendChild(cols); // Chèn cột vào hàng.
+        }
+        tbl.appendChild(rows); // Chèn hàng vào bảng.
+    }
+    carogame.appendChild(tbl); // Vẽ bảng.
+
+    // Function
+    function checkWin() {
+        let turn_count = 0;
+        for (let i = 0; i < NUM_GAME_BOARD; i++) {
+            for (let j = 0; j < NUM_GAME_BOARD; j++) {
+                if (gameBoard[i][j] !== 0) {
+                    turn_count++;
+                }
+            }
+        }
+        if (turn_count === NUM_GAME_BOARD*NUM_GAME_BOARD) { // Board bị đầy khi màn chơi chuyển đến lượt số 9.
+            document.getElementById("output").innerHTML = "Ván đấu Hòa";
+        }
+    }
+
+</script>
+</body>
+
+</html></title>
+</head>
+<body>
+
+</body>
+</html>

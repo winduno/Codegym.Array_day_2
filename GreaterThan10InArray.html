@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GreaterThan10InArray</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    let arr = [];
+    let length = prompt("Nhập số phần tử của mảng đi anh zai!!");
+    let count = 0;
+    let result = 0;
+    while(1){
+        let input = parseFloat(prompt("Nhập vào số thứ " + (count + 1)));
+        if (Number.isInteger(input)){
+            arr[count] = input;
+            count++;
+        }
+        else{
+            alert("Nhập số nguyên cơ mà!!");
+        }
+        if (count == length) break;
+    }
+
+    for (let i = 0; i < length; i++){
+        if (arr[i] >= 10){
+            result++;
+        }
+    }
+
+    if (result > 0){
+        document.write("Mảng: " + arr + "<br>Có " + result + " phần tử trong mảng lớn hơn hoặc bằng 10");
+    }
+    else{
+        document.write("Mảng cùi bắp, chả số nào lớn hơn 10 cả, khỏi in tốn chỗ!!");
+    }
+</script>

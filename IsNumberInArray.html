@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IsNumberInArray</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    let arr = [];
+    let length = prompt("Nhập số phần tử của mảng đi anh zai!!");
+    let count = 0;
+    while(1){
+        let input = parseFloat(prompt("Nhập vào số thứ " + (count + 1)));
+        if (Number.isInteger(input)){
+            arr[count] = input;
+            count++;
+        }
+        else{
+            alert("Nhập số cơ mà!!");
+        }
+        if (count == length) break;
+    }
+
+    let v;
+    do{
+        v = parseFloat(prompt("Nhập số V vào xem nào!!"));
+    } while (isNaN(v));
+
+    //Cách 1 includes:
+    // if (arr.includes(v)) document.write("Mảng: " + arr + "<br>V nằm trong mảng.");
+    // else document.write("Làm quái gì có cái số " + v + " trong mảng đâu. Nhìn xem!! " + arr);
+
+    //Cách 2 duyệt từ đầu đến cuối:
+    let result = false;
+    for (let i = 0; i < length; i++){
+        if (arr[i] == v){
+            result = true;
+            break;
+        }
+    }
+    if (arr.includes(v)) document.write("Mảng: " + arr + "<br>V nằm trong mảng.");
+    else document.write("Làm quái gì có cái số " + v + " trong mảng đâu. Nhìn xem!! " + arr);
+
+</script>

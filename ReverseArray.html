@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ReverseArray</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    let arr = [];
+    let length = prompt("Nhập số phần tử của mảng đi anh zai!!");
+    let count = 0;
+    while(1){
+        let input = parseFloat(prompt("Nhập vào số thứ " + (count + 1)));
+        if (Number.isInteger(input)){
+            arr[count] = input;
+            count++;
+        }
+        else{
+            alert("Nhập số cơ mà!!");
+        }
+        if (count == length) break;
+    }
+
+    document.write("Mảng ban đầu: " + arr);
+
+    for (let i = 0, j = length -1; i < length/2; i++, j--){
+        let temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    document.write("<br>Mảng đảo ngược: " + arr);
+</script>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TicTacToe</title>
+
+    <style>
+        td{
+            background-color: #dc3545;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+        }
+        span{
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<form id="gameField">
+</form>
+<p id="hiddenBoard"></p>
+</body>
+</html>
+<script>
+    let gameField = document.getElementById("gameField");
+    let field = document.createElement("table");
+    let turn = 0;
+    const size = 10;
+    const Xo = "X";
+    const Ox = "O";
+
+    let board = [];
+    let result = "Chưa nhé!!";
+    //Tạo mảng dữ liệu field 3x3
+    for (let i = 0; i < size; i++){
+        board[i] = [0, 0, 0];
+    }
+
+    //Tạo bảng hiển thị
+
+    for (let i = 0; i < size; i++){                         //Lặp 3 lần sẽ tạo được 3 hàng
+        let row = document.createElement("tr");             //Tạo 1 hàng
+        for (let j = 0; j < size; j++){                     //Lặp 3 lần sẽ tạo được 3 ô mỗi hàng
+            let col = document.createElement("td");         //Tạo 1 ô trong hàng đã tạo
+            let text = document.createTextNode("\u00A0");   //Điền vào mỗi ô được tạo 1 dấu cách để hiển thị bảng cho nuột
+            col.appendChild(text);                          //Thêm dấu cách vào ô đã tạo
+            col.onclick = function () {                     //Khi click vào mỗi ô sẽ thực hiện
+                if (this.textContent === "\u00A0"){
+                    if (turn == 0){
+                        this.innerHTML = "<span>O</span>";  //Điền O vào bảng hiển thị
+                        board[i][j] = Ox;                  //Điền o vào board để kiểm tra
+                        turn = 1;
+                        checkRow(i, j, Ox);
+                        checkCol(i, j, Ox);
+                        checkCrossLeftUp(i, j, Ox);
+                        checkCrossRightUp(i, j, Ox);
+                    }
+                    else{
+                        this.innerHTML = "<span>X</span>";  //Điền X vào bảng hiển thị
+                        board[i][j] = Xo;                  //Điền X vào board để kiểm tra
+                        turn = 0;
+                        checkRow(i, j, Xo);
+                        checkCol(i, j, Xo);
+                        checkCrossLeftUp(i, j, Xo);
+                        checkCrossRightUp(i, j, Xo);
+                    }
+                    document.getElementById("hiddenBoard").innerText = result;
+                }
+                else {
+                    alert("Chọn ô khác đi mậy!!")
+                }
+            }
+            row.appendChild(col);                           //Câu này để thêm ô vào hàng
+        }
+        field.appendChild(row);                             //Thêm hàng với các ô đã tạo vào bảng
+    }
+    gameField.appendChild(field);                           //Thêm bảng đã tạo được vào field để hiển thị lên
+
+    //1 Check hàng thẳng từ dưới lên
+    //2 Check hàng thẳng từ trên xuống
+    //3 Check hàng ngang trái qua phải
+    //4 Check hàng ngang phải qua trái
+    //5 Check đường chéo phải qua trái từ dưới lên
+    //6 Check đường chéo trái qua phải từ trên xuống
+    //7 Check đường chéo phải qua trái từ trên xuống
+    //8 Check đường chéo trái qua phải từ dưới lên
+    //-----------------------------------------------------------------------
+    // //Đệ quy check 1
+    // function checkUp(posY, posX, value) {
+    //     y = posY - 1;
+    //     x = posX;
+    //     v = value;
+    //     // let maxIn = 1;
+    //     if (x >= 0  && y >= 0 ){
+    //         if (board[x][y] === v){
+    //             maxIn += 1;
+    //             checkUp(y, x, v);
+    //         }
+    //         // else{
+    //         //     maxIn = 1;
+    //         // }
+    //     }
+    //     // else{
+    //     //     maxIn = 1;
+    //     // }
+    //     return maxIn;
+    // }
+    // //Đệ quy check 2
+    // function checkDown(posY, posX, value) {
+    //     y = posY + 1;
+    //     x = posX;
+    //     v = value;
+    //     // let maxIn = 1;
+    //     if (x < size && y < size){
+    //         if (board[x][y] === v){
+    //             maxIn += 1;
+    //             checkDown(y, x, v);
+    //         }
+    //         // else{
+    //         //     maxIn = 1;
+    //         // }
+    //     }
+    //     // else{
+    //     //     maxIn = 1;
+    //     // }
+    //     return maxIn;
+    // }
+    // //Đệ quy check 3
+    // function checkToRight(posY, posX, value) {
+    //     y = posY;
+    //     x = posX + 1;
+    //     v = value;
+    //     // let maxIn = 1;
+    //     if (x < size && y < size){
+    //         if (board[x][y] === v){
+    //             maxIn += 1;
+    //             checkToRight(y, x, v);
+    //         }
+    //         // else{
+    //         //     maxIn = 1;
+    //         // }
+    //     }
+    //     // else{
+    //     //     maxIn = 1;
+    //     // }
+    //     return maxIn;
+    // }
+    // //Đệ quy check 4
+    // function checkToLeft(posY, posX, value) {
+    //     y = posY;
+    //     x = posX - 1;
+    //     v = value;
+    //     // let maxIn = 1;
+    //     if (x >= 0  && y >= 0){
+    //         if (board[x][y] === v){
+    //             maxIn += 1;
+    //             checkToLeft(y, x, v);
+    //         }
+    //         // else{
+    //         //     maxIn = 1;
+    //         // }
+    //     }
+    //     // else{
+    //     //     maxIn = 1;
+    //     // }
+    //     return maxIn;
+    // }
+    // //Đệ quy check 5
+    // function checkToLeftUp(posY, posX, value) {
+    //     y = posY - 1;
+    //     x = posX - 1;
+    //     v = value;
+    //     // let maxIn = 1;
+    //     if (x >= 0  && y >= 0){
+    //         if (board[x][y] === v){
+    //             maxIn += 1;
+    //             checkToLeftUp(y, x, v);
+    //         }
+    //         // else{
+    //         //     maxIn = 1;
+    //         // }
+    //     }
+    //     // else{
+    //     //     maxIn = 1;
+    //     // }
+    //     return maxIn;
+    // }
+    // //Đệ quy check 6
+    // function checkToRightDown2(posY, posX, value) {
+    //     y = posY + 1;
+    //     x = posX + 1;
+    //     v = value;
+    //     // let maxIn = 1;
+    //     if (x < size && y < size){
+    //         if (board[x][y] === v){
+    //             maxIn += 1;
+    //             checkToRightDown2(y, x, v);
+    //         }
+    //         // else{
+    //         //     maxIn = 1;
+    //         // }
+    //     }
+    //     // else{
+    //     //     maxIn = 1;
+    //     // }
+    //     return maxIn;
+    // }
+    // //Đệ quy check 7
+    // function checkToLeftDown(posY, posX, value) {
+    //     y = posY + 1;
+    //     x = posX - 1;
+    //     v = value;
+    //     // let maxIn = 1;
+    //     if (x >= 0 && y < size){
+    //         if (board[x][y] === v){
+    //             maxIn += 1;
+    //             checkToLeftDown(y, x, v);
+    //         }
+    //         // else{
+    //         //     maxIn = 1;
+    //         // }
+    //     }
+    //     // else{
+    //     //     maxIn = 1;
+    //     // }
+    //     return maxIn;
+    // }
+    // //Đệ quy check 8
+    // function checkToRightUp(posY, posX, value) {
+    //     y = posY - 1;
+    //     x = posX + 1;
+    //     v = value;
+    //     // let maxIn = 1;
+    //     if (x < size && y >= 0){
+    //         if (board[x][y] === v){
+    //             maxIn += 1;
+    //             checkToRightUp(y, x, v);
+    //         }
+    //         // else{
+    //         //     maxIn = 1;
+    //         // }
+    //     }
+    //     // else{
+    //     //     maxIn = 1;
+    //     // }
+    //     return maxIn;
+    // }
+
+    //Lấy giá trị tại vị trí xy trong bảng
+    function getValue(posY, posX) {
+        if (posX >= 0 && posY >= 0 && posX < size && posY < size){
+            // alert(posY + " " + posX);
+            return board[posY][posX];
+        }
+        else{
+            return "";
+        }
+    }
+
+    //Kiểm tra trong hàng từ trái qua phải, nếu đúng kiểm tra tiếp, nếu sai kiểm tra ngược lại
+    function checkRow(posY, posX, ref) {
+        let count = 1;
+        let i = 1;              //Bắt đầu check từ trái qua phải
+        while (getValue(posY, posX + i) == ref){
+            count++;
+            i++;
+        }
+        let j = 1;              //Bắt đầu check từ phải qua trái
+        while (getValue(posY, posX - j) == ref){
+            count++;
+            j++
+        }
+
+        return checkWin(count, ref); //Trả ra số ô liên tiếp trong hàng.
+    }
+
+    //Kiểm tra từ trên xuống dưới, nếu đúng tiếp tục kiểm tra theo hướng đó, nếu sai kiểm tra ngược lại
+    function checkCol(posY, posX, ref) {
+        let count = 1;
+        let i = 1;          //Bắt đầu kiểm tra từ trên xuống
+        while (getValue(posY + i, posX) == ref){
+            count++;
+            i++;
+        }
+        let j = 1           //Bắt đầu kiểm tra từ dưới lên
+        while (getValue(posY - j, posX) == ref){
+            count++;
+            j++
+        }
+        return checkWin(count, ref); //Trả ra số ô liên tiếp trong cột.
+    }
+
+    //Kiểm tra chéo từ dưới lên trên theo bên phải, nếu đúng tiếp tục kiểm tra theo hướng đó, nếu sai kiểm tra ngược lại
+    function checkCrossLeftUp(posY, posX, ref) {
+        let count = 1;
+        let i = 1;          //Bắt đầu kiểm tra chéo dưới lên trên phải
+        while (getValue(posY - i, posX + i) == ref){
+            count++;
+            i++;
+        }
+        let j = 1;          //Bắt đầu kiểm tra chéo trên xuống trái
+        while (getValue(posY + j, posX - j) == ref){
+            count++;
+            j++;
+        }
+        return checkWin(count, ref); //Trả ra số ô liên tiếp trong đường chéo 1.
+    }
+
+    //Kiểm tra chéo từ dưới lên trên theo bên trái, nếu đúng tiếp tục kiểm tra theo hướng đó, sai kiểm tra ngược lại.
+    function checkCrossRightUp(posY, posX, ref) {
+        let count = 1;
+        let i = 1;          //Bắt đầu kiểm tra chéo dưới lên trên phải
+        while (getValue(posY - i, posX - i) == ref){
+            count++;
+            i++;
+        }
+        let j = 1;          //Bắt đầu kiểm tra chéo trên xuống trái
+        while (getValue(posY + j, posX + j) == ref){
+            count++;
+            j++;
+        }
+        return checkWin(count, ref); //Trả ra số ô liên tiếp trong đường chéo 2.
+    }
+
+    function checkWin(count, ref) {
+        if (count == 5) result = ref + " Win!!";
+    }
+
+</script>

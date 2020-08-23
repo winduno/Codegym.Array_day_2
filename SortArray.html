@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SortArray</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    let arr = [];
+    let length = prompt("Nhập số phần tử của mảng đi anh zai!!");
+    let count = 0;
+    while(1){
+        let input = parseFloat(prompt("Nhập vào số thứ " + (count + 1)));
+        if (Number.isInteger(input)){
+            arr[count] = input;
+            count++;
+        }
+        else{
+            alert("Nhập số cơ mà!!");
+        }
+        if (count == length) break;
+    }
+
+    //Cách 1 dùng hàm sort():
+    // document.write("Mảng ban đầu: " + arr + "<br>Mảng sau khi sắp xếp: " + arr.sort(function (a,b){return b-a}));
+
+    //Cách 2 sắp xếp thủ công:
+    document.write("Mảng ban đầu: " + arr);
+    for (let i = 0; i < length; i++){
+        for (let j = 0; j < length - i - 1; j++){
+            if (arr[j] < arr[j+1]){
+                let temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+            }
+        }
+    }
+    document.write("<br>Mảng sau khi sắp xếp: " + arr);
+</script>
